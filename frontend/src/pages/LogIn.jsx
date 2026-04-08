@@ -5,7 +5,7 @@ function LogIn() {
 
   const handleLogIn = async (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
