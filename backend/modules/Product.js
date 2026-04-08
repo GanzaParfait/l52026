@@ -5,6 +5,7 @@ const ProductSchema = new mongoose.Schema({
     cost: Number,
     price: Number,
     quantity: Number,
+    inStock: { type: Boolean, default: true },
     date: { type: Date, default: Date.now }
 });
 

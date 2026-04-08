@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <>
-      <div className="p-4 bg-gray-900 w-min-full h-14 text-white flex justify-between">
+      <div className="p-4 bg-gray-900 w-min-full h-14 border border-gray-900 border-b-amber-100 text-white flex justify-between">
         <span>Welcome Back</span>
         <div
           className="user-profile flex gap-2 items-center cursor-pointer"

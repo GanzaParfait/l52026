@@ -13,7 +13,7 @@ function Sidebar() {
     <>
       <div className="w-70 flex flex-col justify-between bg-gray-900 min-h-screen text-white">
         <div className="top-header">
-          <div className="text-center bg-gray-700 p-4 text-[16px] font-bold">
+          <div className="text-center bg-gray-900 px-4 py-[15px] text-[16px] font-bold border border-gray-900 border-b-amber-100">
             <h2>Train System</h2>
           </div>
 
