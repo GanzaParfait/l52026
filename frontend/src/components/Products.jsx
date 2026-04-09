@@ -41,28 +41,19 @@ function Products() {
 
     // Add and edit product form submit handler
     const handleAddEdit = async () => {
-        try {
-            setSaveLoading(true);
-
-            if (formData._id) {
-                // Edit product
-                await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData);
-                toast.success("Product updated successfully");
-            } else {
-                // Add product
-                await axios.post('http://localhost:5000/api/products', formData);
-                toast.success("Product added successfully");
-            }
-
-            setShowForm(false);
-            setFormData(initialForm);
-            fetchProducts();
-        } catch (err) {
-            console.log(err);
-            toast.error("Failed to save product");
-        } finally {
-            setSaveLoading(false);
+        if (formData._id) {
+            // Edit product
+            await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData);
+            toast.success("Product updated successfully");
+        } else {
+            // Add product
+            await axios.post('http://localhost:5000/api/products', formData);
+            toast.success("Product added successfully");
         }
+
+        setShowForm(false);
+        setFormData(initialForm);
+        fetchProducts();
     }
 
     const handleDelete = async (id) => {

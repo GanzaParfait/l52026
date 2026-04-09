@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Products from "./components/Products";
 import Reports from "./components/Reports";
 import Profile from "./components/Profile";
+import Product from "./components/product";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Dashboard />}></Route>
             <Route path="/products" element={<Products />}></Route>
+            <Route path="/product" element={<Product />}></Route>
             <Route path="/reports" element={<Reports />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
           </Route>
