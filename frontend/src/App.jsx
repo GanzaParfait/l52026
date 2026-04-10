@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./components/Dashboard";
@@ -19,11 +20,11 @@ function App() {
           <Route path="/login" element={<LogIn />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Dashboard />}></Route>
-            <Route path="/products" element={<Products />}></Route>
-            <Route path="/product" element={<Product />}></Route>
-            <Route path="/reports" element={<Reports />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}></Route>
+            <Route path="/products" element={<ProtectedRoute><Products /></ProtectedRoute>}></Route>
+            <Route path="/product" element={<ProtectedRoute><Product /></ProtectedRoute>}></Route>
+            <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>}></Route>
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

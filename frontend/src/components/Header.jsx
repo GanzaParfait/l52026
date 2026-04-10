@@ -8,6 +8,7 @@ function Header() {
   const navigate = useNavigate();
 
   const LogOut = () => {
+    localStorage.removeItem("token");
     navigate("/login");
   };
 

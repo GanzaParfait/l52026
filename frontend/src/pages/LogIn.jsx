@@ -1,12 +1,26 @@
+import axios from "axios";
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function LogIn() {
   const navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
 
   const handleLogIn = async (e) => {
     e.preventDefault();
-    navigate("/");
-  };
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/auth/login", credentials);
+      localStorage.setItem("token", response.data.token);
+
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (err) {
+      console.error("Login failed:", err);
+      toast.error(err.response?.data?.message || "Login failed. Please try again.");
+    }
+  }
 
   return (
     <>
@@ -20,12 +34,13 @@ function LogIn() {
             </p>
           </div>
 
-          <form>
+          <form onSubmit={() => handleLogIn()}>
             <div className="fields-container mb-5">
               <div className="field mb-3">
                 <label>Username or Email</label>
                 <input
                   type="text"
+                  onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                   className="p-3 border rounded focus:outline-none w-full"
                   placeholder="Username or Email..."
                 />
@@ -34,6 +49,7 @@ function LogIn() {
                 <label>Password</label>
                 <input
                   type="password"
+                  onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                   className="p-3 border rounded focus:outline-none w-full"
                   placeholder="Password..."
                 />
@@ -48,7 +64,7 @@ function LogIn() {
                 LOGIN
               </button>
               <p className="text-gray-600">
-                If no account, please{" "}
+                If no account, please { " " }
                 <Link to="/register" className="text-blue-500 hover:underline ">
                   Create an account
                 </Link>

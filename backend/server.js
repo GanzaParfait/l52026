@@ -7,9 +7,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 // Routes
 app.use("/api/products", require("./routes/products"));
+app.use("/api/auth", require("./routes/users"));
 
 // Connect to MongoDB
 mongoose.connect("mongodb://127.0.0.1:27017/stock_v2")
