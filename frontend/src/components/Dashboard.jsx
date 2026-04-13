@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
-
+  const token = localStorage.getItem("token");
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
@@ -12,7 +12,11 @@ function Dashboard() {
   }
 
   const fetchProducts = async () => {
-    const res = await axios.get('http://localhost:5000/api/products');
+    const res = await axios.get('http://localhost:5000/api/products', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     setProducts(res.data.products);
   }
 

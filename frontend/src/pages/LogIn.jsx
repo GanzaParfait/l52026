@@ -12,6 +12,7 @@ function LogIn() {
 
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", credentials);
+      console.log("Check token if created from backend", response.data.token);
       localStorage.setItem("token", response.data.token);
 
       toast.success("Login successful!");

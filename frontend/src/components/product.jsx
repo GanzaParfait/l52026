@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 
 function Product() {
+    const token = localStorage.getItem("token");
     const [showAddForm, setShowAddForm] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -21,10 +22,18 @@ function Product() {
 
         try {
             if (formData._id) {
-                await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData);
+                await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
                 toast.success("Product updated successfully");
             } else {
-                await axios.post("http://localhost:5000/api/products", formData);
+                await axios.post("http://localhost:5000/api/products", formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
                 toast.success("Product added successfully");
             }
         } catch (err) {
@@ -44,7 +53,11 @@ function Product() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/products/${id}`);
+            await axios.delete(`http://localhost:5000/api/products/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             toast.success("Product deleted successfully");
         } catch (err) {
             console.log(err);
@@ -58,7 +71,11 @@ function Product() {
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const res = await axios.get("http://localhost:5000/api/products");
+            const res = await axios.get("http://localhost:5000/api/products", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setProducts(res.data.products);
             // console.log(res.data);
         } catch (err) {
@@ -135,7 +152,6 @@ function Product() {
                 </table>
             </div>
 
-
             {showAddForm && (
                 <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white w-120 items-center mb-6 p-4 rounded">
@@ -184,7 +200,7 @@ function Product() {
 
                     </div>
                 </div>
-            )};
+            )}
 
             {showDeleteConfirm && (
                 <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex items-center justify-center">

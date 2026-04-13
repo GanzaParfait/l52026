@@ -10,6 +10,7 @@ import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function Products() {
+    const token = localStorage.getItem("token");
     const location = useLocation();
     const [products, setProducts] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -43,11 +44,19 @@ function Products() {
     const handleAddEdit = async () => {
         if (formData._id) {
             // Edit product
-            await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData);
+            await axios.put(`http://localhost:5000/api/products/${formData._id}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             toast.success("Product updated successfully");
         } else {
             // Add product
-            await axios.post('http://localhost:5000/api/products', formData);
+            await axios.post('http://localhost:5000/api/products', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             toast.success("Product added successfully");
         }
 
@@ -60,7 +69,11 @@ function Products() {
         try {
             setDeleteLoading(true);
 
-            await axios.delete(`http://localhost:5000/api/products/${id}`);
+            await axios.delete(`http://localhost:5000/api/products/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
             setShowDeleteConfirm(false);
             setSelectedProduct(null);
 
@@ -77,7 +90,11 @@ function Products() {
 
     const fetchProducts = async () => {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/products');
+        const res = await axios.get('http://localhost:5000/api/products', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
         setProducts(res.data.products);
         setLoading(false);
     }

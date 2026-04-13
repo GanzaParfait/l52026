@@ -4,7 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = "l52026_secret_key"; // In production, use environment variables
+const JWT_SECRET = process.env.JWT_SECRET; // In production, use environment variables
 
 // Register a new user
 router.post('/register', async (req, res) => {
